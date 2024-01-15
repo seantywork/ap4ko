@@ -1,39 +1,9 @@
-This repo is was started with the code from the Realtek USB driver
-RTL8852AU_WiFi_linux_v1.15.0.1-0-g487ee886.20210714. The current code improves
-on the Realtek code by reworking the debug output to avoid spamming the logs.
-In the current settings, messages from RTW_ERR(), RTW_WARNING(), and
-RTW_WARNING() will be output.
+# kcrack-rtl8852au
 
-If you want more output, increase the value of CONFIG_RTW_LOG_LEVEL in Makefile.
-This parameter should probably be one that can be set at module load time,
-but that is a matter for another time.
+**Disclaimer : I am not liable for any misuse of this code**
+**Only use it on machines and in environments that you have explicit permissions and authrizations to do so**
 
-The driver supports rtl8832au/rtl8852au chipsets.
-
-This driver currently handles the following devices:
-
-* BUFFALO WI-U3-1200AX2(/N) with USB ID 0411:0312
-* ASUS USB-AX56 with USB ID 0b05:1997
-* ASUS USB-AX56 with USB ID 0b05:1a62
-* EDUP EP-AX1696GS with USB ID 0bda:8832
-* Fenvi FU-AX1800P with USB ID 0bda:885c
-* Realtek Demo Board with USB ID 0bda:8832
-* Realtek Demo Board with USB ID 0bda:885a
-* Realtek Demo Board with USB ID 0bda:885c
-* D-Link DWA-X1850 with USB ID 2001:3321
-* TP-Link AX1800 with USB ID 2357:013f
-* ipTIME AX2000U with USB ID 0bda:8832
-* ELECOM WDC-X1201DU3 with USB ID 056e:4020
-
-The D-Link DWA-X1850 comes with a configuration that appears to be a USB disk,
-which contains a Windows driver. If a 'lsusb' command shows the ID 0bda:1a2b,
-then this disk is mounted. The way to avoid this is to edit either file
-/usr/lib/udev/rules.d/40-usb_modeswitch.rules, or
-/lib/udev/rules.d/40-usb_modeswitch.rules, whichever is on your system, and add
-the following lines:
-
-# D-Link DWA-X1850 Wifi Dongle
-ATTR{idVendor}=="0bda", ATTR{idProduct}=="1a2b", RUN+="usb_modeswitch '/%k'"
+Unnecessarily (and sometime dangerously) talkative kernel wifi driver module for rtl8852au 
 
 ### Installation instruction
 ##### Requirements
@@ -81,34 +51,6 @@ git pull
 make
 sudo make install
 ```
-
-When your kernel is updated, then do a 'git pull' and redo the make commands.
-
-##### Installation with module signing for SecureBoot
-For all distros:
-```bash
-git clone git://github.com/lwfinger/rtl8852au.git
-cd rtl8852au
-make
-sudo make sign-install
-```
-You will be promted for a password, please keep it in mind and use it in next steps.
-
-Reboot to activate the new installed module.
-In the MOK managerment screen:
-1. Select "Enroll key" and enroll the key created by above sign-install step
-2. When promted, enter the password you entered when create sign key. 
-
-If you enter wrong password, your computer won't not rebootable. In this case,
-   use the BOOT menu from your BIOS, to boot into your OS then do below steps:
-
-```bash
-sudo mokutil --reset
-```
-Restart your computer
-Use BOOT menu from BIOS to boot into your OS
-In the MOK managerment screen, select reset MOK list
-Reboot then retry from the step make sign-install
 
 ## Adding modules to DKMS for Debian/Ubuntu
 
