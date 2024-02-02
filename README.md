@@ -1,8 +1,7 @@
-# kcrack-rtl8852au
+# ap2ko
 
 **Disclaimer : I am not liable for any misuse of this code**
 **Only use it on machines and in environments that you have explicit permissions and authrizations to do so**
 
-Unnecessarily (and sometimes dangerously) talkative kernel wifi driver module for rtl8852au 
-
+access point that lets a user control various custom kernel network drivers directly from browser
 
